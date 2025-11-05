@@ -2,7 +2,7 @@ import logging
 import os
 import pyodbc
 import pandas as pd
-import json
+# import json # Removed: The 'json' module is imported but not used in this script.
 import azure.functions as func
 
 # --- Configuration (These values should be set as Application Settings in your Function App) ---
