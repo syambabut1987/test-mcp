@@ -1,0 +1,45 @@
+name: Trigger auto deployment for container-app-test-mcp
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/container-app-test-mcp-AutoDeployTrigger-8ac97246-845c-4cdf-8f9e-0210a28a78c3.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.CONTAINERAPPTESTMCP_AZURE_CREDENTIALS }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }}
+          _dockerfilePathKey_: _dockerfilePath_
+          _targetLabelKey_: _targetLabel_
+          registryUrl: testmcpcontainerregistr.azurecr.io
+          registryUsername: ${{ secrets.CONTAINERAPPTESTMCP_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CONTAINERAPPTESTMCP_REGISTRY_PASSWORD }}
+          containerAppName: container-app-test-mcp
+          resourceGroup: rg-mcp-test
+          imageToBuild: testmcpcontainerregistr.azurecr.io/container-app-test-mcp:${{ github.sha }}
+          
+            
+
+     
+
