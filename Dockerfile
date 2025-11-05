@@ -5,9 +5,9 @@ EXPOSE 8000
 
 WORKDIR /app
 
-ADD /requirements.txt .
-ADD /repository.py .
-ADD /main.py .
+ADD /src/requirements.txt .
+ADD /src/repository.py .
+ADD /src/main.py .
 # Uncomment the following line to use a local copy of the .env file
 # ADD .env . 
 
