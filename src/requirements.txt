@@ -1,0 +1,7 @@
+python-dotenv==1.0.0
+uvicorn==0.23.2
+fastapi==0.101.0
+azure-monitor-opentelemetry==1.0.0b16
+azure-identity==1.14.0
+pyodbc==4.0.39
+gunicorn
